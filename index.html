@@ -3,134 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LeetCode Progress Tracker</title>
+    <meta name="description" content="Track your LeetCode progress with beautiful analytics and insights.">
+    <meta name="theme-color" content="#0a0a0f">
+    <title>CodePulse — LeetCode Progress Tracker</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- PAGE 1: LOGIN SCREEN -->
-    <section id="login-page" class="page active">
-        <div class="login-container">
-            <div class="login-card">
-                <div class="login-header">
-                    <div class="logo">
-                        <i class="fa-solid fa-code"></i>
-                    </div>
-                    <h1>Welcome Back</h1>
-                    <p>Enter your LeetCode username to sync your progress.</p>
+<!-- ═══════════ LOGIN PAGE ═══════════ -->
+<section id="login-page" class="page active" role="main" aria-label="Login">
+    <div class="login-bg" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+    <div class="login-container">
+        <div class="brand-panel" aria-hidden="true">
+            <div class="brand-logo">
+                <span class="logo-mark"><i class="fa-solid fa-code"></i></span>
+                <span class="logo-text">CodePulse</span>
+            </div>
+            <div class="brand-copy">
+                <h2>Your coding <br><em>story</em>, told in <br>numbers.</h2>
+                <p>Sync your LeetCode profile and watch your progress come alive with beautiful analytics.</p>
+            </div>
+            <div class="brand-stats">
+                <div class="brand-stat">
+                    <span class="brand-stat-num">3M+</span>
+                    <span class="brand-stat-label">Problems tracked</span>
                 </div>
-                <form id="login-form">
-                    <div class="input-group">
-                        <input type="text" id="username" placeholder="LeetCode Username" required>
-                    </div>
-                    <button type="submit" class="btn-primary">
-                        View Dashboard <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </form>
+                <div class="brand-stat">
+                    <span class="brand-stat-num">50K+</span>
+                    <span class="brand-stat-label">Active coders</span>
+                </div>
             </div>
         </div>
-    </section>
-
-    <!-- PAGE 2: DASHBOARD -->
-    <section id="dashboard-page" class="page">
-        <header class="top-nav">
-            <div class="user-info">
-                <span>Welcome, <strong id="display-username">User</strong></span>
-                <span class="badge">DEMO MODE</span>
-            </div>
-            <button id="logout-btn" class="btn-outline">Logout</button>
-        </header>
-
-        <main class="dashboard-content">
-            <!-- Chill Level Section -->
-            <section class="chill-section">
-                <div class="chill-card">
-                    <div class="chill-info">
-                        <h2>Current Chill Level</h2>
-                        <div class="chill-value-container">
-                            <span id="chill-percentage" class="chill-value">0%</span>
+        <div class="login-card">
+            <div class="card-inner">
+                <div class="card-header">
+                    <p class="card-eyebrow">Get started — it's free</p>
+                    <h1>Sign in to <br>your dashboard</h1>
+                </div>
+                <form id="login-form" novalidate>
+                    <div class="field-group">
+                        <label for="username" class="field-label">LeetCode Username</label>
+                        <div class="field-wrap">
+                            <span class="field-icon"><i class="fa-solid fa-at"></i></span>
+                            <input type="text" id="username" placeholder="e.g. neal_wu"
+                                autocomplete="username" spellcheck="false" aria-required="true" required>
                         </div>
-                        <p>Keep it up! You're staying consistent.</p>
+                        <p class="field-hint">Enter your exact LeetCode handle</p>
+                        <p id="username-error" class="field-error" role="alert" aria-live="polite"></p>
                     </div>
-                    <div class="chill-visual">
-                        <!-- Background glow effect -->
-                        <div class="glow"></div>
-                    </div>
-                </div>
-            </section>
+                    <button type="submit" class="btn-submit" id="login-btn">
+                        <span class="btn-text">View my dashboard</span>
+                        <span class="btn-icon"><i class="fa-solid fa-arrow-right"></i></span>
+                        <span class="btn-loader"><i class="fa-solid fa-circle-notch fa-spin"></i></span>
+                    </button>
+                </form>
+                <p class="demo-note">
+                    No account needed — your LeetCode username is enough.
+                    <button class="demo-link" id="demo-btn">Try demo mode →</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
 
-            <!-- Stats Cards Section -->
-            <section class="stats-grid">
-                <div class="stat-card">
-                    <div class="icon-box purple"><i class="fa-solid fa-fire"></i></div>
-                    <div class="stat-info">
-                        <h3>Total Solved</h3>
-                        <p class="stat-number" id="stat-total">412</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="icon-box green"><i class="fa-solid fa-leaf"></i></div>
-                    <div class="stat-info">
-                        <h3>Easy</h3>
-                        <p class="stat-number" id="stat-easy">158</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="icon-box yellow"><i class="fa-solid fa-bolt"></i></div>
-                    <div class="stat-info">
-                        <h3>Medium</h3>
-                        <p class="stat-number" id="stat-medium">210</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="icon-box red"><i class="fa-solid fa-skull"></i></div>
-                    <div class="stat-info">
-                        <h3>Hard</h3>
-                        <p class="stat-number" id="stat-hard">44</p>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="icon-box black"><i class="fa-solid fa-calendar-check"></i></div>
-                    <div class="stat-info">
-                        <h3>Days Streak</h3>
-                        <p class="stat-number" id="stat-streak">12</p>
-                    </div>
-                </div>
-            </section>
+<!-- ═══════════ DASHBOARD PAGE ═══════════ -->
+<section id="dashboard-page" class="page" role="main" aria-label="Dashboard">
 
-            <!-- Graphs Section -->
-            <section class="charts-grid">
-                <div class="chart-container">
-                    <div class="chart-header">
-                        <h3>Activity Progress</h3>
-                        <p>Submissions over the last 7 days</p>
-                    </div>
-                    <canvas id="lineChart"></canvas>
+    <!-- Navbar -->
+    <header class="navbar" id="navbar">
+        <nav class="navbar-inner">
+            <div class="navbar-brand">
+                <span class="logo-mark sm"><i class="fa-solid fa-code"></i></span>
+                <span class="logo-text">CodePulse</span>
+            </div>
+            <div class="navbar-right">
+                <div class="user-chip">
+                    <span class="user-avatar" id="user-avatar">U</span>
+                    <span id="display-username">User</span>
+                    <span class="mode-badge" id="mode-badge">DEMO</span>
                 </div>
-                <div class="chart-container">
-                    <div class="chart-header">
-                        <h3>Difficulty Distribution</h3>
-                        <p>Categorized by problem level</p>
-                    </div>
-                    <div class="doughnut-wrapper">
-                        <canvas id="doughnutChart"></canvas>
-                    </div>
-                </div>
-            </section>
-
-            <div class="actions-footer">
-                <button class="btn-primary" id="refresh-data">
-                    Refresh Statistics <i class="fa-solid fa-rotate"></i>
+                <button id="logout-btn" class="btn-ghost">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Logout</span>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
                 </button>
             </div>
-        </main>
-    </section>
+        </nav>
+        <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+            <button id="mobile-logout" class="mobile-nav-link logout-link">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+            </button>
+        </div>
+    </header>
 
-    <script src="script.js"></script>
+    <!-- Tab Bar -->
+    <div class="tab-bar" role="tablist" aria-label="Dashboard sections">
+        <button class="tab-btn active" role="tab" aria-selected="true" data-tab="overview">
+            <i class="fa-solid fa-chart-pie"></i> Overview
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="analytics">
+            <i class="fa-solid fa-chart-line"></i> Analytics
+        </button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="topics">
+            <i class="fa-solid fa-tags"></i> Topics Mastered
+        </button>
+    </div>
+
+    <div class="dashboard-body">
+
+        <!-- ── OVERVIEW TAB ── -->
+        <div id="tab-overview" class="tab-panel active" role="tabpanel">
+            <section class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-left">
+                        <p class="section-eyebrow">Performance Level</p>
+                        <div class="score-display">
+                            <span id="chill-percentage" class="score-value" aria-live="polite">0%</span>
+                            <svg viewBox="0 0 120 120" class="ring-svg" aria-hidden="true">
+                                <circle class="ring-bg" cx="60" cy="60" r="50"/>
+                                <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="50"
+                                    stroke-dasharray="314" stroke-dashoffset="314"/>
+                            </svg>
+                        </div>
+                        <p class="score-label" id="score-label">Calculating your score…</p>
+                    </div>
+                    <div class="hero-right">
+                        <div class="diff-bar-row">
+                            <div class="diff-label">
+                                <span class="dot easy"></span><span>Easy</span>
+                                <span id="bar-easy-count" class="diff-count">—</span>
+                            </div>
+                            <div class="diff-bar-track"><div class="diff-bar-fill easy" id="bar-easy"></div></div>
+                        </div>
+                        <div class="diff-bar-row">
+                            <div class="diff-label">
+                                <span class="dot medium"></span><span>Medium</span>
+                                <span id="bar-medium-count" class="diff-count">—</span>
+                            </div>
+                            <div class="diff-bar-track"><div class="diff-bar-fill medium" id="bar-medium"></div></div>
+                        </div>
+                        <div class="diff-bar-row">
+                            <div class="diff-label">
+                                <span class="dot hard"></span><span>Hard</span>
+                                <span id="bar-hard-count" class="diff-count">—</span>
+                            </div>
+                            <div class="diff-bar-track"><div class="diff-bar-fill hard" id="bar-hard"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cards-section">
+                <div class="cards-grid">
+                    <article class="stat-card">
+                        <div class="stat-icon purple"><i class="fa-solid fa-fire-flame-curved"></i></div>
+                        <div class="stat-body"><p class="stat-label">Total Solved</p><p class="stat-num" id="stat-total">—</p></div>
+                        <div class="stat-trend up"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                    </article>
+                    <article class="stat-card stat-card--clickable" id="card-easy" role="button" tabindex="0" aria-label="View easy questions">
+                        <div class="stat-icon green"><i class="fa-solid fa-seedling"></i></div>
+                        <div class="stat-body"><p class="stat-label">Easy</p><p class="stat-num" id="stat-easy">—</p></div>
+                        <div class="stat-trend"><i class="fa-solid fa-chevron-right"></i></div>
+                    </article>
+                    <article class="stat-card stat-card--clickable" id="card-medium" role="button" tabindex="0" aria-label="View medium questions">
+                        <div class="stat-icon amber"><i class="fa-solid fa-bolt"></i></div>
+                        <div class="stat-body"><p class="stat-label">Medium</p><p class="stat-num" id="stat-medium">—</p></div>
+                        <div class="stat-trend"><i class="fa-solid fa-chevron-right"></i></div>
+                    </article>
+                    <article class="stat-card stat-card--clickable" id="card-hard" role="button" tabindex="0" aria-label="View hard questions">
+                        <div class="stat-icon red"><i class="fa-solid fa-skull-crossbones"></i></div>
+                        <div class="stat-body"><p class="stat-label">Hard</p><p class="stat-num" id="stat-hard">—</p></div>
+                        <div class="stat-trend"><i class="fa-solid fa-chevron-right"></i></div>
+                    </article>
+                    <article class="stat-card">
+                        <div class="stat-icon cyan"><i class="fa-solid fa-calendar-check"></i></div>
+                        <div class="stat-body"><p class="stat-label">Streak</p><p class="stat-num" id="stat-streak">—</p></div>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <!-- ── ANALYTICS TAB ── -->
+        <div id="tab-analytics" class="tab-panel" role="tabpanel" hidden>
+            <section class="charts-section">
+                <div class="section-header">
+                    <div>
+                        <p class="section-eyebrow">Analytics</p>
+                        <h2 class="section-title">Your activity at a glance</h2>
+                    </div>
+                    <button class="btn-refresh" id="refresh-data">
+                        <i class="fa-solid fa-arrows-rotate"></i> Refresh
+                    </button>
+                </div>
+                <div class="charts-grid">
+                    <div class="chart-card chart-card--heatmap">
+                        <div class="chart-card-header">
+                            <h3>Submission Heatmap</h3>
+                            <p>Activity over the last 12 months</p>
+                        </div>
+                        <div class="heatmap-area" id="heatmap-area"></div>
+                        <div class="heatmap-legend">
+                            <span class="heatmap-legend-label">Less</span>
+                            <span class="heatmap-legend-cell" data-level="0"></span>
+                            <span class="heatmap-legend-cell" data-level="1"></span>
+                            <span class="heatmap-legend-cell" data-level="2"></span>
+                            <span class="heatmap-legend-cell" data-level="3"></span>
+                            <span class="heatmap-legend-cell" data-level="4"></span>
+                            <span class="heatmap-legend-label">More</span>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-card-header">
+                            <h3>Difficulty Split</h3>
+                            <p>Breakdown by problem level</p>
+                        </div>
+                        <div class="chart-area doughnut-area">
+                            <canvas id="doughnutChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ── TOPICS TAB ── -->
+        <div id="tab-topics" class="tab-panel" role="tabpanel" hidden>
+            <section class="topics-section">
+                <div class="section-header">
+                    <div>
+                        <p class="section-eyebrow">Deep Dive</p>
+                        <h2 class="section-title">Topics mastered</h2>
+                    </div>
+                    <p class="topics-hint"><i class="fa-solid fa-hand-pointer"></i> Click any topic to see solved questions</p>
+                </div>
+                <div class="topics-grid" id="topics-grid"></div>
+            </section>
+        </div>
+
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Topic Questions Modal -->
+    <div class="modal-backdrop" id="modal-backdrop" aria-hidden="true">
+        <div class="modal" id="topic-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="modal-header">
+                <div>
+                    <p class="modal-eyebrow" id="modal-eyebrow">Topic</p>
+                    <h2 class="modal-title" id="modal-title">Questions</h2>
+                </div>
+                <button class="modal-close" id="modal-close" aria-label="Close">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="modal-filters" role="group" aria-label="Filter by difficulty">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="easy"><span class="dot easy"></span>Easy</button>
+                <button class="filter-btn" data-filter="medium"><span class="dot medium"></span>Medium</button>
+                <button class="filter-btn" data-filter="hard"><span class="dot hard"></span>Hard</button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+            <div class="modal-footer">
+                <span id="modal-count" class="modal-count"></span>
+                <a id="modal-lc-link" class="modal-lc-link" href="#" target="_blank" rel="noopener noreferrer">
+                    Browse on LeetCode <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script src="script.js"></script>
 </body>
 </html>
