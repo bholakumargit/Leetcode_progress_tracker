@@ -1,7 +1,4 @@
-/**
- * CodePulse — LeetCode Progress Tracker
- * Features: tabs, topic modal with questions, difficulty filter, real API
- */
+
 
 document.addEventListener('DOMContentLoaded', () => {
 
