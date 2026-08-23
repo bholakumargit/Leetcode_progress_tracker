@@ -69,3 +69,6 @@ The dashboard provides a clean interface for viewing coding progress and perform
 **Bhola Kumar**
 
 ⭐ If you like this project, consider giving it a star!
+<img width="1870" height="837" alt="image" src="https://github.com/user-attachments/assets/4aa113d7-216c-4751-84a1-90a3eab4e5c8" />
+<img width="1856" height="918" alt="image" src="https://github.com/user-attachments/assets/0dba652a-ba67-4b37-8a17-e7b0986189a8" />
+
