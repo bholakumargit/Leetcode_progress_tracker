@@ -66,6 +66,6 @@ The dashboard provides a clean interface for viewing coding progress and perform
 
 ## 👨‍💻 Author
 
-**Vikash Kumar**
+**Bhola Kumar**
 
 ⭐ If you like this project, consider giving it a star!
